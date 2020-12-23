@@ -47,7 +47,7 @@ app.post('/files', (req, res) => {
   const { path, filenames } = req.body
   cache.files.ensure(path, [])
   const contents = cache.files.get(path)
-  const updated = new Set([... filenames, contents])
+  const updated = new Set([...filenames, ...contents])
   count = updated.size - contents.length
   if (count > 0) {
     cache.files.set(path, new Set([... filenames, contents]))
