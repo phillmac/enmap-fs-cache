@@ -22,6 +22,7 @@ const cache = {
 
 app.get('/file', (req, res) => {
   const { path, filename } = req.body
+  console.log('GET /file', req.body)
   cache.files.ensure(path, [])
   if (cache.files.includes(path, filename)) {
     res.json({ exists: true })
