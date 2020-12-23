@@ -24,23 +24,23 @@ app.get('/file', (req, res) => {
   const { path, filename } = req.body
   cache.files.ensure(path, [])
   if (cache.files.includes(path, filename)) {
-    res.send({ exists: true })
+    res.json({ exists: true })
   }
-  res.send({ exists: false })
+  res.json({ exists: false })
 })
 
 app.post('/file', (req, res) => {
   const { path, filename } = req.body
   cache.files.ensure(path, [])
   cache.files.push(path, filename, null, false)
-  res.send('ok')
+  res.json('ok')
 })
 
 app.get('/files', (req, res) => {
   const { path } = req.body
   cache.files.ensure(path, [])
   cache.files.get(path)
-  res.send(cache.files.get(path))
+  res.json(cache.files.get(path))
 })
 
 app.post('/files', async (req, res) => {
@@ -53,7 +53,7 @@ app.post('/files', async (req, res) => {
     cache.files.set(path, updated)
     console.log(`Added ${count} items to ${path}`)
   }
-  res.send('ok')
+  res.json('ok')
 })
 
 // starting the server
