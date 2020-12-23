@@ -1,0 +1,24 @@
+{
+  "name": "enmap-fs-cache",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phillmac/enmap-fs-cache.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phillmac/enmap-fs-cache/issues"
+  },
+  "homepage": "https://github.com/phillmac/enmap-fs-cache#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "enmap": "^5.8.2",
+    "express": "^4.17.1"
+  }
+}
