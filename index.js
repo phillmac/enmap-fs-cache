@@ -47,13 +47,12 @@ app.post('/files', async (req, res) => {
   const { path, filenames } = req.body
   cache.files.ensure(path, [])
   const contents = await cache.files.get(path)
-  console.log(contents, contents.length)
   const updated = Array.from(new Set([...filenames, ...contents]))
   count = updated.length - contents.length
   if (count > 0) {
     cache.files.set(path, updated)
+    console.log(`Added ${count} items to ${path}`)
   }
-  console.log(`Added ${count} items to ${path}`)
   res.send('ok')
 })
 
