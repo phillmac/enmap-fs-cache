@@ -22,19 +22,31 @@ const cache = {
 
 app.get('/file', (req, res) => {
   const { path, filename } = req.body
-  console.log('GET', req.body)
   cache.files.ensure(path, [])
-  if (cache.files.get(path).includes(filename)) {
+  if (cache.files.includes(path, filename)) {
     res.send({ exists: true })
   }
   res.send({ exists: false })
 })
 
-app.put('/file', (req, res) => {
+app.post('/file', (req, res) => {
   const { path, filename } = req.body
-  console.log('POST', req.body)
   cache.files.ensure(path, [])
   cache.files.push(path, filename, null, false)
+  res.send('ok')
+})
+
+app.get('/files', (req, res) => {
+  const { path } = req.body
+  cache.files.ensure(path, [])
+  cache.files.get(path)
+  res.send(cache.files.get(path))
+})
+
+app.post('/files', (req, res) => {
+  const { path, filenames } = req.body
+  cache.files.ensure(path, [])
+  cache.files.set(path, new Set([... filenames, ...cache.files.get(path)]))
   res.send('ok')
 })
 
