@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/phillmac/enmap-fs-cache#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "enmap": "^5.8.2",
     "express": "^4.17.1"
   }
