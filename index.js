@@ -3,7 +3,7 @@ const Enmap = require('enmap')
 
 const app = express()
 
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
 
 const cache = {
   files: new Enmap({
@@ -48,7 +48,7 @@ app.post('/files', async (req, res) => {
   cache.files.ensure(path, [])
   const contents = await cache.files.get(path)
   const updated = Array.from(new Set([...filenames, ...contents]))
-  count = updated.length - contents.length
+  const count = updated.length - contents.length
   if (count > 0) {
     cache.files.set(path, updated)
     console.log(`Added ${count} items to ${path}`)
