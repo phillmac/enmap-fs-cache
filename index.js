@@ -26,8 +26,9 @@ app.get('/file', (req, res) => {
   cache.files.ensure(path, [])
   if (cache.files.includes(path, filename)) {
     res.json({ exists: true })
+  } else {
+    res.json({ exists: false })
   }
-  res.json({ exists: false })
 })
 
 app.post('/file', (req, res) => {
