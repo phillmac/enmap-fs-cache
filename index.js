@@ -1,10 +1,9 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const Enmap = require('enmap')
 
 const app = express()
 
-app.use(bodyParser.json())
+app.use(express.json());
 
 const cache = {
   files: new Enmap({
