@@ -3,7 +3,7 @@ const Enmap = require('enmap')
 
 const app = express()
 
-app.use(express.json({ type: '*/*' }))
+app.use(express.json())
 
 const cache = {
   files: new Enmap({
