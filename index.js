@@ -40,6 +40,7 @@ app.post('/file', (req, res) => {
 
 app.get('/files', (req, res) => {
   const { path } = req.body
+  console.log('GET /file', req.body)
   cache.files.ensure(path, [])
   cache.files.get(path)
   res.json(cache.files.get(path))
