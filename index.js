@@ -36,6 +36,8 @@ app.post('/file', (req, res) => {
   cache.files.ensure(path, [])
   cache.files.push(path, filename, null, false)
   res.json('ok')
+  console.log('Request Headers:', JSON.stringify(req.headers))
+  console.log('Response Headers:', JSON.stringify(res.headers))
 })
 
 app.get('/files', (req, res) => {
@@ -57,9 +59,23 @@ app.post('/files', async (req, res) => {
     console.log(`Added ${count} items to ${path}`)
   }
   res.json('ok')
+  console.log('Request Headers:', JSON.stringify(req.headers))
+  console.log('Response Headers:', JSON.stringify(res.headers))
 })
 
 // starting the server
-app.listen(3003, () => {
+const server = app.listen(3003, () => {
   console.log('listening on port 3003')
+})
+
+server.keepAliveTimeout = 120 * 1000;
+
+server.on('connection', function (socket) {
+  const remoteAddr = socket.remoteAddress
+  socket.setTimeout(150 * 1000)
+  socket.setKeepAlive(true)
+  console.log(`${remoteAddr} Client Connected`)
+  socket.on('disconnect', function () {
+    console.log(`${remoteAddr} Client Disconnected`)
+  })
 })
