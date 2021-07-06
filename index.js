@@ -1,9 +1,12 @@
 const express = require('express')
 const Enmap = require('enmap')
+const morgan = require('morgan')
 
 const app = express()
 
 app.use(express.json({ limit: '50mb' }))
+
+morgan(':method :url :status :req[content-length] - :response-time ms')
 
 const cache = {
   files: new Enmap({
