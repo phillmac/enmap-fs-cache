@@ -36,8 +36,8 @@ app.post('/file', (req, res) => {
   cache.files.ensure(path, [])
   cache.files.push(path, filename, null, false)
   res.json('ok')
-  console.log('Request Headers:', JSON.stringify(req.headers))
-  console.log('Response Headers:', JSON.stringify(res.getHeaders()))
+  // console.log('Request Headers:', JSON.stringify(req.headers))
+  // console.log('Response Headers:', JSON.stringify(res.getHeaders()))
 })
 
 app.get('/files', (req, res) => {
@@ -59,8 +59,8 @@ app.post('/files', async (req, res) => {
     console.log(`Added ${count} items to ${path}`)
   }
   res.json('ok')
-  console.log('Request Headers:', JSON.stringify(req.headers))
-  console.log('Response Headers:', JSON.stringify(res.getHeaders()))
+  // console.log('Request Headers:', JSON.stringify(req.headers))
+  // console.log('Response Headers:', JSON.stringify(res.getHeaders()))
 })
 
 // starting the server
