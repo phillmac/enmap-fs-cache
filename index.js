@@ -6,8 +6,6 @@ const app = express()
 
 app.use(express.json({ limit: '50mb' }))
 
-morgan(':method :url :status :req[content-length] - :response-time ms')
-
 const cache = {
   files: new Enmap({
     name: 'FilesCache',
@@ -82,3 +80,5 @@ server.on('connection', function (socket) {
     console.log(`${remoteAddr} Client Disconnected`)
   })
 })
+
+morgan(':method :url :status :req[content-length] - :response-time ms')
