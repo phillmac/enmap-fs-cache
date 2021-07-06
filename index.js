@@ -5,7 +5,13 @@ const morgan = require('morgan')
 const app = express()
 
 app.use(express.json({ limit: '50mb' }))
-app.use(morgan(':method :url :status :req[content-length] - :response-time ms'))
+
+morgan.token('params', (req, _res) => {
+  const { path, filename} = req.body
+  return JSON.stringify({ path, filename})
+})
+
+app.use(morgan(':method :url :status :req[content-length] :params :res[content-length] - :response-time ms'))
 
 const cache = {
   files: new Enmap({
@@ -24,7 +30,6 @@ const cache = {
 
 app.get('/file', (req, res) => {
   const { path, filename } = req.body
-  console.log('GET /file', req.body)
   cache.files.ensure(path, [])
   if (cache.files.includes(path, filename)) {
     res.json({ exists: true })
@@ -38,13 +43,10 @@ app.post('/file', (req, res) => {
   cache.files.ensure(path, [])
   cache.files.push(path, filename, null, false)
   res.json('ok')
-  // console.log('Request Headers:', JSON.stringify(req.headers))
-  // console.log('Response Headers:', JSON.stringify(res.getHeaders()))
 })
 
 app.get('/files', (req, res) => {
   const { path } = req.body
-  console.log('GET /files', req.body)
   cache.files.ensure(path, [])
   cache.files.get(path)
   res.json(cache.files.get(path))
@@ -58,16 +60,14 @@ app.post('/files', async (req, res) => {
   const count = updated.length - contents.length
   if (count > 0) {
     cache.files.set(path, updated)
-    console.log(`Added ${count} items to ${path}`)
+    console.info(`Added ${count} items to ${path}`)
   }
   res.json('ok')
-  // console.log('Request Headers:', JSON.stringify(req.headers))
-  // console.log('Response Headers:', JSON.stringify(res.getHeaders()))
 })
 
 // starting the server
 const server = app.listen(3003, () => {
-  console.log('listening on port 3003')
+  console.info('listening on port 3003')
 })
 
 server.keepAliveTimeout = 120 * 1000
@@ -76,8 +76,8 @@ server.on('connection', function (socket) {
   const remoteAddr = socket.remoteAddress
   socket.setTimeout(150 * 1000)
   socket.setKeepAlive(true)
-  console.log(`${remoteAddr} Client Connected`)
+  console.info(`${remoteAddr} Client Connected`)
   socket.on('disconnect', function () {
-    console.log(`${remoteAddr} Client Disconnected`)
+    console.info(`${remoteAddr} Client Disconnected`)
   })
 })
