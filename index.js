@@ -68,7 +68,7 @@ const server = app.listen(3003, () => {
   console.log('listening on port 3003')
 })
 
-server.keepAliveTimeout = 120 * 1000;
+server.keepAliveTimeout = 120 * 1000
 
 server.on('connection', function (socket) {
   const remoteAddr = socket.remoteAddress
