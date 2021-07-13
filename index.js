@@ -19,13 +19,25 @@ const cache = {
     fetchAll: false,
     autoFetch: true,
     cloneLevel: 'deep'
-  })//,
-  // folders: new Enmap({
-  //   name: 'FoldersCache',
-  //   fetchAll: false,
-  //   autoFetch: true,
-  //   cloneLevel: 'deep'
-  // })
+  }),
+  folders: new Enmap({
+    name: 'FoldersCache',
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep'
+  }),
+  hashedFiles: new Enmap({
+    name: 'hashedFilesCache',
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep'
+  }),
+  fileHases: new Enmap({
+    name: 'fileHasesCache',
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep'
+  }),
 }
 
 app.get('/file', (req, res) => {
