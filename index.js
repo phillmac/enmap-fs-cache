@@ -33,7 +33,7 @@ const cache = {
     autoFetch: true,
     cloneLevel: 'deep'
   }),
-  fileHases: new Enmap({
+  fileHashes: new Enmap({
     name: 'fileHashesCache',
     fetchAll: false,
     autoFetch: true,
