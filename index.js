@@ -34,7 +34,7 @@ const cache = {
     cloneLevel: 'deep'
   }),
   fileHases: new Enmap({
-    name: 'fileHasesCache',
+    name: 'fileHashesCache',
     fetchAll: false,
     autoFetch: true,
     cloneLevel: 'deep'
