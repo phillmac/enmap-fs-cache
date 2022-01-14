@@ -11,9 +11,18 @@ module.exports = function (app, cache) {
   })
 
   app.post('/file', (req, res) => {
-    const { path, filename } = req.body
+    const { path, filename, hash } = req.body
     cache.files.ensure(path, [])
+    cache.folders.ensure(filename, [])
     cache.files.push(path, filename, null, false)
+    cache.folders.push(filename, path, null, false)
+    if (hash) {
+      cache.hashedFiles.ensure(hash, [], filename)
+      cache.fileHashes.ensure(filename, [], hash)
+
+      cache.hashedFiles.push(hash, path, filename, false)
+      cache.fileHashes.push(filename, path, hash, false)
+    }
     res.json('ok')
   })
 
